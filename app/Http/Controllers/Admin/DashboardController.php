@@ -28,6 +28,7 @@ class DashboardController extends Controller
         foreach ($electionId as $id) {
             $election = Election::find($id->id);
         }
+	//this line should be inside foreach loop
         $candidates = Candidate::where('election_id', $election->id)->get();
         foreach($candidates as $candidate){
             $votes = Result::where('candidate_id', $candidate)->get()->count();
@@ -39,4 +40,17 @@ class DashboardController extends Controller
             'votes' => $votes,
         ]);
     }
+
+   public function showDashboard2()
+   {
+	$elections = Election::whereNotNull('end')
+		->with('candidates')
+		->withCount('result')
+		->get();
+	dd($elections->toArray())
+// check if works and what you get
+
+
+
+   }
 }
