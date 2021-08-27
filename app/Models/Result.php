@@ -15,4 +15,19 @@ class Result extends Model
         'election_id',
         'category_id'
     ];
+
+
+public function candidate()
+{
+return $this->belongsTo(Candidate::class);
+}
+
+public function election()
+{
+return $this->belongsTo(Election::class);
+}
+
+
+
+
 }
